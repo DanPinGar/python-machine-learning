@@ -11,8 +11,12 @@
             "id": "6ff91c23ccac4acf",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "TensorFlow.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "TensorFlow.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "TensorFlow.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "TensorFlow.md"
+              }
             }
           }
         ]
@@ -140,6 +148,10 @@
   },
   "active": "6ff91c23ccac4acf",
   "lastOpenFiles": [
+    "Torch.md",
+    "TensorFlow.md",
+    "Machine learning concepts.md",
+    "List of processed videos.md",
     "Notas/Torch.md",
     "Notas/TensorFlow.md",
     "Notas/Machine learning concepts.md",
