@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+from tensorflow.keras import layers, models
 
 # --------------------------------- UTILITIES ---------------------------------
 
@@ -8,8 +9,15 @@ def bin_forecast(pred,label='real label',up_frc='up forecast',down_frc='down for
     pred_r=np.round(pred[0][0], decimals=4)
 
 
-    if pred_r >=0.5: print(f'Real: {label} ----> Forecast: {pred_r*100} % {up_frc}')
-    else:print(f'Real: {label} ----> Forecast: {(1-pred_r)*100} % {down_frc}')
+    if pred_r >=0.5: 
+        
+        print(f'Real: {label} ----> Forecast: {up_frc}')
+        print(f'Percentage: {(pred_r)*100} %')
+
+    else:
+
+        print(f'Real: {label} ----> Forecast: {down_frc}')
+        print(f'Percentage: {(1-pred_r)*100} %')
     print(' ')
 
  
@@ -44,11 +52,27 @@ def lib_models(mdl:str,im_input_shp=None):
 
         if mdl == 'image_bin_I':
 
-            model = tf.keras.models.Sequential([
-                    tf.keras.layers.Flatten(input_shape=im_input_shp),
-                    tf.keras.layers.Dense(128, activation='relu'),
-                    tf.keras.layers.Dropout(0.2),
-                    tf.keras.layers.Dense(1, activation='sigmoid')])
+            model = models.Sequential([
+                                      layers.Flatten(input_shape=im_input_shp),
+                                      layers.Dense(128, activation='relu'),
+                                      layers.Dropout(0.2),
+                                      layers.Dense(1, activation='sigmoid'),
+                                      ])
+            
+        elif mdl == 'image_conv_bin_I':
+
+            model = models.Sequential([
+                            layers.Rescaling(1./255, input_shape=im_input_shp),
+                            layers.Conv2D(32, (3, 3), activation='relu'),
+                            layers.MaxPooling2D((2, 2)),
+                            layers.Conv2D(64, (3, 3), activation='relu'),
+                            layers.MaxPooling2D((2, 2)),
+                            layers.Conv2D(64, (3, 3), activation='relu'),
+                            layers.Flatten(),
+                            layers.Dense(64, activation='relu'),
+                            layers.Dense(1, activation='sigmoid'),
+                            ])
+
 
         return model
 
