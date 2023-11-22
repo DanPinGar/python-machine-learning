@@ -13,7 +13,7 @@ def acm_param(param=None,pred1=1,pred2=2, error=' PARAM ERROR IN acm_param FUNCT
     else: print(error)
 
 
-# ---------------------------------- IMAGES GENERATOR LIB ------------------------------
+# ---------------------------------- DATA DICT GENERATORS  ------------------------------
 
 def im_data_gen(height, width,n,typ,color=255,cir_f=False):
 
@@ -23,22 +23,41 @@ def im_data_gen(height, width,n,typ,color=255,cir_f=False):
 
         n_rdm=np.random.rand()
 
-        if n_rdm>=0.5:input[R]['image'],input[R]['label']=line_im(height=height, width=width,thickness=(1,3),color=color)
+        if n_rdm>=0.5:
+            
+            p1=[np.random.randint(0, width-1),np.random.randint(0, height-1)]
+            p2=[np.random.randint(0, width-1),np.random.randint(0, height-1)]
+            input[R]['image'],input[R]['label']=line_im(p1,p2,height=height, width=width,thickness=(1,3),color=color)
+            
         else:input[R]['image'],input[R]['label']=circle_im(height=height, width=width,thickness=(1,3),color=color,filled=cir_f)
 
     return input
 
+def vid_data_gen(height, width,n,typ,color=255,cir_f=False):
 
-def line_im(height=100, width=100,thickness=None,color=255):
+    input={typ + str(ii):{} for ii in range(n)}
 
-    x1=np.random.randint(0, width-1)
-    x2=np.random.randint(0, width-1)
-    y1=np.random.randint(0, height-1)
-    y2=np.random.randint(0, height-1)
+    for R in input.keys():
+
+        n_rdm=np.random.rand()
+
+        if n_rdm>=0.5:
+            
+            p1=[np.random.randint(0, width-1),np.random.randint(0, height-1)]
+            p2=[np.random.randint(0, width-1),np.random.randint(0, height-1)]
+            input[R]['image'],input[R]['label']=line_im(p1,p2,height=height, width=width,thickness=(1,3),color=color)
+
+        else:input[R]['image'],input[R]['label']=circle_im(height=height, width=width,thickness=(1,3),color=color,filled=cir_f)
+
+    return input
+
+# ---------------------------------- FIGURES ------------------------------
+
+def line_im(p1:list,p2:list,height=100, width=100,thickness=None,color=255):
+  
     thickness=acm_param(thickness,pred1=1,pred2=3, error=' thickness value ERROR in line function ')
-    
     image = np.zeros((height, width), dtype=np.uint8)
-    cv2.line(image, (x1, y1), (x2, y2), color=color, thickness=thickness)
+    cv2.line(image, (p1[0], p1[1]), (p2[0], p2[1]), color=color, thickness=thickness)
         
     return image, 'line'
 

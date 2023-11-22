@@ -1,6 +1,6 @@
 import numpy as np
-import tensorflow as tf
 from tensorflow.keras import layers, models
+from tensorflow import keras
 
 # --------------------------------- UTILITIES ---------------------------------
 
@@ -41,16 +41,15 @@ def cnn_data_bin_gen(input,zero=' ', one= ' '):
 
 # --------------------------------- MODELS ---------------------------------
 
+MODELS={'A':'image_full_bin','B':'image_conv_bin','C':'image_conv_bin_augmentation'}
+
 
 def lib_models(mdl:str,im_input_shp=None):
 
-    mdl_ls=['image_bin_I']
+    
+    if mdl in MODELS.values():
 
-    if mdl in mdl_ls:
-
-        print(f'MODEL:{mdl}')
-
-        if mdl == 'image_bin_I':
+        if mdl == MODELS['A']:
 
             model = models.Sequential([
                                       layers.Flatten(input_shape=im_input_shp),
@@ -58,8 +57,9 @@ def lib_models(mdl:str,im_input_shp=None):
                                       layers.Dropout(0.2),
                                       layers.Dense(1, activation='sigmoid'),
                                       ])
-            
-        elif mdl == 'image_conv_bin_I':
+            print(f"MODEL LOADED: {MODELS['A']}")
+
+        elif mdl == MODELS['B']:
 
             model = models.Sequential([
                             layers.Rescaling(1./255, input_shape=im_input_shp),
@@ -68,11 +68,40 @@ def lib_models(mdl:str,im_input_shp=None):
                             layers.Conv2D(64, (3, 3), activation='relu'),
                             layers.MaxPooling2D((2, 2)),
                             layers.Conv2D(64, (3, 3), activation='relu'),
+                            layers.MaxPooling2D((2, 2)),
+                            layers.Dropout(0.2),
                             layers.Flatten(),
                             layers.Dense(64, activation='relu'),
                             layers.Dense(1, activation='sigmoid'),
                             ])
 
+            print(f"MODEL LOADED: {MODELS['B']}")
+
+        elif mdl == MODELS['C']:
+
+            data_augmentation = keras.Sequential([
+                      layers.RandomFlip("horizontal",input_shape=im_input_shp),
+                      layers.RandomRotation(0.1),
+                      layers.RandomZoom(0.1),])
+                            
+            model = models.Sequential([
+                            data_augmentation,
+                            layers.Rescaling(1./255),
+                            layers.Conv2D(32, (3, 3), activation='relu'),
+                            layers.MaxPooling2D((2, 2)),
+                            layers.Conv2D(64, (3, 3), activation='relu'),
+                            layers.MaxPooling2D((2, 2)),
+                            layers.Conv2D(64, (3, 3), activation='relu'),
+                            layers.MaxPooling2D((2, 2)),
+                            layers.Dropout(0.2),
+                            layers.Flatten(),
+                            layers.Dense(64, activation='relu'),
+                            layers.Dense(1, activation='sigmoid'),
+                            ])
+
+            print(f"MODEL LOADED: {MODELS['C']}")
+
+        print(' ')
 
         return model
 
