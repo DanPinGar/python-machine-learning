@@ -19,7 +19,10 @@ model.add(layers.Flatten())model.add(layers.Dense(64, activation='relu'))model.a
 2- Image classification: https://www.tensorflow.org/tutorials/images/classification
 
 
-3 - Data augmwntation: https://www.tensorflow.org/tutorials/images/data_augmentation
+3 - Data augmentation: https://www.tensorflow.org/tutorials/images/data_augmentation
+
+4 - Image Segmentation: https://www.tensorflow.org/tutorials/images/segmentation
+
 
 EDA & Keras CNN Tutorial | Cats vs Dogs:
 

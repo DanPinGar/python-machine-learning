@@ -73,7 +73,7 @@ def vid_d_bin_gen(input,height, width, zero=' ', one= ' '):
 
 # --------------------------------- MODELS ---------------------------------
 
-MODELS={'A':'image_full_bin','B':'image_conv_bin','C':'image_conv_bin_augmentation','D':'video_'}
+MODELS={'A':'image_full','B':'image_conv','C':'image_conv_augmentation','D':'video_conv2D'}
 
 
 def lib_models(mdl:str,im_input_shp=None):
@@ -134,6 +134,15 @@ def lib_models(mdl:str,im_input_shp=None):
             print(f"MODEL LOADED: {MODELS['C']}")
 
         elif mdl == MODELS['D']:
+
+            model = models.Sequential([layers.TimeDistributed(layers.Conv2D(16, (3, 3), activation='relu'), input_shape=im_input_shp),
+                             layers.TimeDistributed(layers.MaxPooling2D((2, 2))),
+                             layers.TimeDistributed(layers.Conv2D(16, (3, 3), activation='relu')),
+                             layers.TimeDistributed(layers.MaxPooling2D((2, 2))),
+                             layers.TimeDistributed(layers.Flatten()),
+                             layers.LSTM(4),
+                             layers.Dense(1, activation='sigmoid'),
+                              ])
 
             print(f"MODEL LOADED: {MODELS['D']}")
 
