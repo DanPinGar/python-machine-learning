@@ -24,7 +24,7 @@ def bin_forecast(pred,label='real label',up_frc='up forecast',down_frc='down for
 
 # --------------------------------- INPUT GENERATORS ---------------------------------
 
-def cnn_data_bin_gen(input,zero=' ', one= ' '):
+def im_d_bin_gen(input,zero=' ', one= ' '):
 
     x,y=[],[]
 
@@ -37,11 +37,43 @@ def cnn_data_bin_gen(input,zero=' ', one= ' '):
         else: print('Binary asigment ERROR')
 
     X,Y = np.array(x),np.array(y)
+
     return X,Y
+
+def vid_d_bin_gen(input,height, width, zero=' ', one= ' '):
+
+    x,y=[],[]
+
+    for kk in input.keys():
+
+        vd=input[kk]['image']
+        vd = vd[:, :, :, np.newaxis]
+        x.append(vd)
+
+        if input[kk]['label']==zero: y.append(0)
+        elif input[kk]['label']==one: y.append(1)
+        else: print('Binary asigment ERROR')
+
+    max_frm_n=max([len(input[R]['image']) for R in input.keys()])
+
+    for ii, video in enumerate(x):
+    
+        frames_actual = video.shape[0]
+        if frames_actual < max_frm_n:
+            
+            padding = np.zeros((max_frm_n - frames_actual, height, width, 1))
+            x[ii] = np.concatenate([video, padding], axis=0)
+
+        elif frames_actual > max_frm_n:
+            
+            x[ii] = video[:max_frm_n, :, :, :]
+
+    X,Y = np.array(x),np.array(y)
+    return X,Y,max_frm_n
 
 # --------------------------------- MODELS ---------------------------------
 
-MODELS={'A':'image_full_bin','B':'image_conv_bin','C':'image_conv_bin_augmentation'}
+MODELS={'A':'image_full_bin','B':'image_conv_bin','C':'image_conv_bin_augmentation','D':'video_'}
 
 
 def lib_models(mdl:str,im_input_shp=None):
@@ -100,6 +132,10 @@ def lib_models(mdl:str,im_input_shp=None):
                             ])
 
             print(f"MODEL LOADED: {MODELS['C']}")
+
+        elif mdl == MODELS['D']:
+
+            print(f"MODEL LOADED: {MODELS['D']}")
 
         print(' ')
 

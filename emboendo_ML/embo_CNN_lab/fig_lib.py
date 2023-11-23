@@ -68,7 +68,7 @@ def vid_data_gen(height, width,n,n_frm,typ,color=255,cir_f=False):
     for R in input.keys():
 
         vd_ls=[]
-        n_frames=np.random.randint(n_frm[0],n_frm[1])
+        n_frames=np.random.randint(n_frm[0],n_frm[1]+1)
         n_rdm=np.random.rand()
 
         if n_rdm>=0.5:
