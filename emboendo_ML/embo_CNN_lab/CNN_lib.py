@@ -151,6 +151,19 @@ def lib_models(mdl:str,im_input_shp=None):
 
         elif mdl == MODELS['E']:
 
+            model = models.Sequential([
+                            layers.Conv3D(filters=16, kernel_size=(3, 3, 3), activation='relu',input_shape=im_input_shp),
+                            layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
+                            layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
+                            layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                            layers.Conv3D(filters=64, kernel_size=(1, 3, 3),  activation='relu'),
+                            layers.Flatten(),
+                            layers.Dense(64, activation='relu'),
+                            layers.Dense(1,activation='sigmoid')
+                            ])
+
             print(f"MODEL LOADED: {MODELS['E']}")
 
         print(' ')
