@@ -25,14 +25,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "TensorFlow.md",
+                "file": "Machine learning concepts.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "80349d57b80d7919",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "GENERAL.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -98,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TensorFlow.md",
+                "file": "GENERAL.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "TensorFlow.md",
+                "file": "GENERAL.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "TensorFlow.md"
+                "file": "GENERAL.md"
               }
             }
           }
@@ -159,18 +171,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0b114a56735d0c19",
+  "active": "80349d57b80d7919",
   "lastOpenFiles": [
-    "MODELS.md",
+    "Pasted image 20231124134257.png",
+    "GENERAL.md",
     "Machine learning concepts.md",
+    "List of processed videos.md",
+    "MODELS.md",
+    "TensorFlow.md",
     "Pasted image 20231124085829.png",
     "Pasted image 20231124084028.png",
     "Pasted image 20231124084023.png",
     "Pasted image 20231124083338.png",
-    "List of processed videos.md",
     "Pasted image 20231124082147.png",
     "Pasted image 20231124082136.png",
-    "TensorFlow.md",
     "Torch.md",
     "Notas/Torch.md",
     "Notas/TensorFlow.md",

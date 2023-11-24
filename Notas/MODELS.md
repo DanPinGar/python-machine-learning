@@ -85,3 +85,22 @@ data_augmentation = keras.Sequential([
                             layers.Dense(1, activation='sigmoid'),
                             ])
 ![[Pasted image 20231124085829.png]]
+
+#### E: video_conv3D
+
+
+model = models.Sequential([
+
+          layers.Conv3D(filters=16, kernel_size=(3, 3, 3), activation='relu',input_shape=(max_frm_n, HEIGHT, WIDTH, 1)),
+          layers.MaxPooling3D(pool_size=(2, 2, 2)),
+          layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
+          layers.MaxPooling3D(pool_size=(2, 2, 2)),
+          layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
+          layers.MaxPooling3D(pool_size=(2, 2, 2)),
+          layers.Conv3D(filters=64, kernel_size=(1, 3, 3),  activation='relu'),
+          layers.Flatten(),
+          layers.Dense(64, activation='relu'),
+          layers.Dense(1,activation='sigmoid')
+          ])
+          
+![[Pasted image 20231124134257.png]]

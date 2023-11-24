@@ -71,9 +71,13 @@ def vid_d_bin_gen(input,height, width, zero=' ', one= ' '):
     X,Y = np.array(x),np.array(y)
     return X,Y,max_frm_n
 
+
+
+
+
 # --------------------------------- MODELS ---------------------------------
 
-MODELS={'A':'image_full','B':'image_conv','C':'image_conv_augmentation','D':'video_conv2D','E':'video_'}
+MODELS={'A':'image_full','B':'image_conv','C':'image_conv_augmentation','D':'video_conv2D','E':'video_conv3D'}
 
 
 def lib_models(mdl:str,im_input_shp=None):
