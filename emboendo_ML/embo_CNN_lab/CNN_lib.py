@@ -73,7 +73,7 @@ def vid_d_bin_gen(input,height, width, zero=' ', one= ' '):
 
 # --------------------------------- MODELS ---------------------------------
 
-MODELS={'A':'image_full','B':'image_conv','C':'image_conv_augmentation','D':'video_conv2D'}
+MODELS={'A':'image_full','B':'image_conv','C':'image_conv_augmentation','D':'video_conv2D','E':'video_'}
 
 
 def lib_models(mdl:str,im_input_shp=None):
@@ -87,6 +87,9 @@ def lib_models(mdl:str,im_input_shp=None):
                                       layers.Flatten(input_shape=im_input_shp),
                                       layers.Dense(128, activation='relu'),
                                       layers.Dropout(0.2),
+                                      layers.Dense(128, activation='relu'),
+                                      layers.Dropout(0.2),
+                                      layers.Dense(128, activation='relu'),
                                       layers.Dense(1, activation='sigmoid'),
                                       ])
             print(f"MODEL LOADED: {MODELS['A']}")
@@ -145,6 +148,10 @@ def lib_models(mdl:str,im_input_shp=None):
                               ])
 
             print(f"MODEL LOADED: {MODELS['D']}")
+
+        elif mdl == MODELS['E']:
+
+            print(f"MODEL LOADED: {MODELS['E']}")
 
         print(' ')
 

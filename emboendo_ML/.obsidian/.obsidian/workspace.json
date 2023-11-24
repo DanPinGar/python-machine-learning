@@ -1,52 +1,35 @@
 {
   "main": {
-    "id": "4b0460d1610c63c3",
+    "id": "67d214b8a1639672",
     "type": "split",
     "children": [
       {
-        "id": "9ff5ec49552dcbca",
+        "id": "fee2db4fd44526c9",
         "type": "tabs",
         "children": [
           {
-            "id": "6ff91c23ccac4acf",
+            "id": "3f2c1c7f7041bae9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "TensorFlow.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0b114a56735d0c19",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "TensorFlow.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "b8a6afe429a8d265",
+    "id": "0d7571abcf9c408d",
     "type": "split",
     "children": [
       {
-        "id": "0d80ca149913669d",
+        "id": "79385918ea831ee3",
         "type": "tabs",
         "children": [
           {
-            "id": "7910d0317acd521c",
+            "id": "707d39a985cc5e44",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -56,7 +39,7 @@
             }
           },
           {
-            "id": "3b95ace269fe4e86",
+            "id": "4217fae5d79347da",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -71,7 +54,7 @@
             }
           },
           {
-            "id": "7e9fdaac2bec4b15",
+            "id": "d093fe126e5aa40e",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -85,20 +68,19 @@
     "width": 300
   },
   "right": {
-    "id": "50fb53e214771a39",
+    "id": "377fe8d4a1fe94f4",
     "type": "split",
     "children": [
       {
-        "id": "86691f767daa663a",
+        "id": "76d8fbd341975c82",
         "type": "tabs",
         "children": [
           {
-            "id": "0d7620b149374346",
+            "id": "0bc44abc1d068574",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "TensorFlow.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,19 +92,18 @@
             }
           },
           {
-            "id": "0f8d68fb08ba08dc",
+            "id": "f95e2eba7cd0e6ae",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "TensorFlow.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "3cae565621fddc36",
+            "id": "4c8d4e9d3e17ec9f",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -133,13 +114,11 @@
             }
           },
           {
-            "id": "58565f7ffdec7300",
+            "id": "1a3ccf976e1dc70d",
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "TensorFlow.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -159,23 +138,6 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0b114a56735d0c19",
-  "lastOpenFiles": [
-    "MODELS.md",
-    "Machine learning concepts.md",
-    "Pasted image 20231124085829.png",
-    "Pasted image 20231124084028.png",
-    "Pasted image 20231124084023.png",
-    "Pasted image 20231124083338.png",
-    "List of processed videos.md",
-    "Pasted image 20231124082147.png",
-    "Pasted image 20231124082136.png",
-    "TensorFlow.md",
-    "Torch.md",
-    "Notas/Torch.md",
-    "Notas/TensorFlow.md",
-    "Notas/Machine learning concepts.md",
-    "Notas/List of processed videos.md",
-    "Notas"
-  ]
+  "active": "3f2c1c7f7041bae9",
+  "lastOpenFiles": []
 }
