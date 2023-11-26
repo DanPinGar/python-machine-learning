@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "GENERAL.md",
+                "file": "RECORDS.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "GENERAL.md",
+                "file": "RECORDS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "GENERAL.md",
+                "file": "RECORDS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "GENERAL.md"
+                "file": "RECORDS.md"
               }
             }
           }
@@ -173,10 +173,10 @@
   },
   "active": "80349d57b80d7919",
   "lastOpenFiles": [
-    "Pasted image 20231124134257.png",
     "GENERAL.md",
     "Machine learning concepts.md",
-    "List of processed videos.md",
+    "RECORDS.md",
+    "Pasted image 20231124134257.png",
     "MODELS.md",
     "TensorFlow.md",
     "Pasted image 20231124085829.png",
