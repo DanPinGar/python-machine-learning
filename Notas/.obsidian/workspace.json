@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "RECORDS.md",
+                "file": "Torch.md",
                 "mode": "source",
                 "source": false
               }
@@ -122,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "RECORDS.md",
+                "file": "Torch.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "RECORDS.md",
+                "file": "Torch.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "RECORDS.md"
+                "file": "Torch.md"
               }
             }
           }
@@ -185,22 +185,22 @@
   },
   "active": "80349d57b80d7919",
   "lastOpenFiles": [
-    "Eight views of echocaridogram.md",
-    "RECORDS.md",
+    "TensorFlow.md",
+    "MODELS.md",
     "Machine learning concepts.md",
+    "GENERAL.md",
+    "Eight views of echocaridogram.md",
+    "Apical_4_chamber_view.png",
+    "anatomy-echocardiogram-cardiology-labeled-windows-original.jpeg",
+    "RECORDS.md",
     "ApicalPulseFinal-1024x1003.jpg",
     "Systematic-approach-for-cardiac-ultrasound-placement-locations-Abbreviations-PLAX.png",
-    "anatomy-echocardiogram-cardiology-labeled-windows-original.jpeg",
-    "Apical_4_chamber_view.png",
     "Cardiac-Ultrasound-Echocardiography-Apical-4-Chamber-view-A4C-Illustration.png",
     "Cardiac-Ultrasound-Echocardiography-Parasternal-Short-Axis-Protocol-for-all-the-Views-POCUS-1024x642.png",
     "B9780323055277500093_gr1.jpg",
     "urn_cambridge.org_id_binary_18710_20160510100106161-0480_73161fig4_7.gif",
     "Pasted image 20231127083314.png",
-    "GENERAL.md",
     "Pasted image 20231124134257.png",
-    "MODELS.md",
-    "TensorFlow.md",
     "Torch.md",
     "Notas/Torch.md",
     "Notas/TensorFlow.md",

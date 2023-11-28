@@ -15,9 +15,6 @@ Kernelized Augmented Zero-mean Extremum (KAZE)
 
 # Links 
 
-3D Convolutions : Understanding + Use Case:
-https://www.kaggle.com/code/shivamb/3d-convolutions-understanding-use-
-
 
 
 
