@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
 import pydicom
-import streamlit as st
 import cv2
 import time
 import os
 import matplotlib.pyplot as plt
 import pyexcel_ods
+
 
 MAIN_FILE_PATH = 'C:\PROJECTS\emboendo\Data\AnonymDAnon_Filter_I\DICOMDIR'
 FILES_PATH = 'C:/PROJECTS/emboendo/Data/AnonymDAnon_Filter_I/DICOM/'
@@ -57,3 +57,17 @@ def labels_df():
     df.columns=['PatientID','Sex','Age','S.E.', 'M.A.', 'A.C.V.','label']
 
     return df
+
+def load_rec(record):
+
+    filename = FILES_PATH + record
+    return pydicom.dcmread(filename)
+
+def im_data(image_data):
+    
+    if len(np.shape(image_data))==3: image_data=image_data[ :, :,0]
+    normalized_image = cv2.normalize(image_data, None, 0, 255, cv2.NORM_MINMAX)
+    image_8bit = np.uint8(normalized_image)
+    width, height = image_data.shape[1], image_data.shape[0]
+
+    return image_8bit,  width, height
