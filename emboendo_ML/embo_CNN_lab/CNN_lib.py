@@ -4,7 +4,6 @@ from tensorflow import keras
 
 # --------------------------------- UTILITIES ---------------------------------
 
-a='hey'
 def bin_forecast(pred,label='real label',up_frc='up forecast',down_frc='down forecast'):
 
     pred_r=np.round(pred[0][0], decimals=4)

@@ -10,6 +10,7 @@ Support Vector Machines (SVMs)
 
 Kernelized Augmented Zero-mean Extremum (KAZE)
 
+Receiver operating characteristic (ROC curve)
 
 
 
