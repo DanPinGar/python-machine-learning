@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import pyexcel_ods
 
 
-MAIN_FILE_PATH = 'C:\PROJECTS\emboendo\Data\AnonymDAnon_Filter_I\DICOMDIR'
-FILES_PATH = 'C:/PROJECTS/emboendo/Data/AnonymDAnon_Filter_I/DICOM/'
+MAIN_FILE_PATH = 'C:\PROJECTS\emboendo\Data\AnonymDAnon_Filter_II\DICOMDIR'
+FILES_PATH = 'C:/PROJECTS/emboendo/Data/AnonymDAnon_Filter_II/DICOM/'
 ods_file = 'C:\PROJECTS\emboendo\Data\TEE_Endocarditis_JUL2023.ods'
 DS = pydicom.dcmread(MAIN_FILE_PATH)
 

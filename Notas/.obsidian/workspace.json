@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Machine learning concepts.md",
+                "file": "RECORDS.md",
                 "mode": "source",
                 "source": false
               }
@@ -122,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Machine learning concepts.md",
+                "file": "RECORDS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Machine learning concepts.md",
+                "file": "RECORDS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Machine learning concepts.md"
+                "file": "RECORDS.md"
               }
             }
           }
@@ -185,18 +185,18 @@
   },
   "active": "80349d57b80d7919",
   "lastOpenFiles": [
-    "GENERAL.md",
+    "B9780323055277500093_gr1.jpg",
+    "Cardiac-Ultrasound-Echocardiography-Apical-4-Chamber-view-A4C-Illustration.png",
+    "Cardiac-Ultrasound-Echocardiography-Parasternal-Short-Axis-Protocol-for-all-the-Views-POCUS-1024x642.png",
+    "Eight views of echocaridogram.md",
     "MODELS.md",
+    "Machine learning concepts.md",
+    "GENERAL.md",
     "Pasted image 20231127083314.png",
     "ApicalPulseFinal-1024x1003.jpg",
     "anatomy-echocardiogram-cardiology-labeled-windows-original.jpeg",
     "Apical_4_chamber_view.png",
-    "B9780323055277500093_gr1.jpg",
-    "Cardiac-Ultrasound-Echocardiography-Apical-4-Chamber-view-A4C-Illustration.png",
     "Pasted image 20231124082136.png",
-    "Machine learning concepts.md",
-    "Eight views of echocaridogram.md",
-    "Cardiac-Ultrasound-Echocardiography-Parasternal-Short-Axis-Protocol-for-all-the-Views-POCUS-1024x642.png",
     "Torch.md",
     "TensorFlow.md",
     "RECORDS.md",
