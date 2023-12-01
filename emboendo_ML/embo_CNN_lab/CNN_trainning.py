@@ -49,33 +49,5 @@ history =model.fit(X_train, Y_train, epochs=epch, validation_data=(X_eval,Y_eval
 
 
 
-print('hey')
+print('done')
 
-fg_size=(14,8)
-
-acc = history.history['accuracy']
-val_acc = history.history['val_accuracy']
-
-loss = history.history['loss']
-val_loss = history.history['val_loss']
-
-epochs_range = range(epch)
-
-
-plt.figure(figsize=fg_size)
-plt.subplot(1, 2, 1)
-plt.plot(epochs_range, acc, label='Training Accuracy')
-plt.plot(epochs_range, val_acc, label='Validation Accuracy')
-plt.legend(loc='lower right')
-plt.title('Training and Validation Accuracy')
-plt.xlabel('Epochs')  
-plt.ylabel('Accuracy')  
-
-plt.subplot(1, 2, 2)
-plt.plot(epochs_range, loss, label='Training Loss')
-plt.plot(epochs_range, val_loss, label='Validation Loss')
-plt.legend(loc='upper right')
-plt.title('Training and Validation Loss')
-plt.xlabel('Epochs')  
-plt.ylabel('Loss')  
-plt.show()

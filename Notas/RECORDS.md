@@ -1,7 +1,7 @@
 
 Patient record
 
-62: I0,I1, I2, I9,I11, I18
+62: I0,I1, I2, I9,I11
 
 76: I24,I25,I26,I27,I28, I33,I38,I39,I40,I42,I44,I45,I47,I49               (marcada I35)
 
