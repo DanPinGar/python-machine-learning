@@ -25,38 +25,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Machine learning concepts.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "80349d57b80d7919",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
                 "file": "RECORDS.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "e7298632832d0859",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Eight views of echocaridogram.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -184,23 +160,23 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "80349d57b80d7919",
+  "active": "0b114a56735d0c19",
   "lastOpenFiles": [
+    "Machine learning concepts.md",
+    "RECORDS.md",
+    "GENERAL.md",
+    "Eight views of echocaridogram.md",
+    "TensorFlow.md",
     "B9780323055277500093_gr1.jpg",
     "Cardiac-Ultrasound-Echocardiography-Apical-4-Chamber-view-A4C-Illustration.png",
     "Cardiac-Ultrasound-Echocardiography-Parasternal-Short-Axis-Protocol-for-all-the-Views-POCUS-1024x642.png",
-    "Eight views of echocaridogram.md",
     "MODELS.md",
-    "Machine learning concepts.md",
-    "GENERAL.md",
     "Pasted image 20231127083314.png",
     "ApicalPulseFinal-1024x1003.jpg",
     "anatomy-echocardiogram-cardiology-labeled-windows-original.jpeg",
     "Apical_4_chamber_view.png",
     "Pasted image 20231124082136.png",
     "Torch.md",
-    "TensorFlow.md",
-    "RECORDS.md",
     "Systematic-approach-for-cardiac-ultrasound-placement-locations-Abbreviations-PLAX.png",
     "urn_cambridge.org_id_binary_18710_20160510100106161-0480_73161fig4_7.gif",
     "Notas/Torch.md",
