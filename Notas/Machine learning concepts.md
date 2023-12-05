@@ -20,6 +20,11 @@ Receiver operating characteristic (ROC curve)
 https://www.sciencedirect.com/science/article/abs/pii/S188558571930369X
 
 
+# Ver transformers explicados
+
+https://bbycroft.net/llm
+
+
 # References
 
 - Deep Learning by I. Goodfellow, Y. Bengio, A. Courville
