@@ -84,7 +84,7 @@ def vid_data_gen(height, width,n,n_frm,typ,color=255,cir_f=False):
                 p1[1]+= np.random.randint(-int(height*0.02), int(height*0.02))
                 p2[1]+=np.random.randint(-int(height*0.06), int(height*0.06))
 
-            input[R]['label']='line'
+            input[R]['label']=1
 
         else:
 
@@ -98,9 +98,10 @@ def vid_data_gen(height, width,n,n_frm,typ,color=255,cir_f=False):
                 center[1]+= np.random.randint(-int(height*0.03), int(height*0.03))
                 radio += np.random.randint(-int(height*0.01), int(height*0.02))
 
-            input[R]['label']='circle'
+            input[R]['label']=0
 
         input[R]['image']=np.array(vd_ls)
+        input[R]['dimHW']=[height, width]
 
     return input
 
