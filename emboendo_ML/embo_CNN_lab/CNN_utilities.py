@@ -2,59 +2,48 @@ import numpy as np
 import pandas as pd
 import pydicom
 import cv2
-import time
 import os
 import matplotlib.pyplot as plt
-import pyexcel_ods
+import re
+import pickle
 
 
-MAIN_FILE_PATH = 'C:\PROJECTS\emboendo\Data\AnonymDAnon_Filter_II\DICOMDIR'
-FILES_PATH = 'C:/PROJECTS/emboendo/Data/AnonymDAnon_Filter_II/DICOM/'
-ods_file = 'C:\PROJECTS\emboendo\Data\TEE_Endocarditis_JUL2023.ods'
-DS = pydicom.dcmread(MAIN_FILE_PATH)
+PIKLE_SAVED_P='C:\PROJECTS\emboendo\dicom_viewer\_static\labels_d.pkl'
+#FILES_PATH = 'C:/PROJECTS/emboendo/Data/AnonymDAnon_Filter_III/DICOM/'
+FILES_PATH = 'C:/PROJECTS/emboendo/Data/ALL_RECORDS/DICOM/'
+
+LABELS_FILE_P_1 = 'C:\PROJECTS\emboendo\Data\TEE_Endocarditis_JUL2023.ods'
+LABELS_FILE_P_2 = 'C:\PROJECTS\emboendo\Data\EII_HCUV_VAo_VMitral_con_Vegetacion'
+
+FILTER_HEADS=['numero','sexo','edad','ING_embolia_sistemica', 'ING_aneurisma_micotico_A', 'ING_acv_A']
+
+
 
 def main_d_df():
 
-    patient_data = []
-    for record in DS.DirectoryRecordSequence:
+    patient_data={}
 
-        if record.DirectoryRecordType == 'PATIENT':
+    for file in os.listdir(FILES_PATH):
 
-            patient_info = {'PatientID': int(record.PatientID)}
-            patient_info['Records']=[]
+        file_p = os.path.join(FILES_PATH, file)
+        record = pydicom.dcmread(file_p)
+        P_ID=record.PatientID
+        P_ID = re.sub(r'[^0-9]', '', P_ID)
+        P_ID=int(P_ID)
 
-            for element in record.children[0].children[0].children:
+        if P_ID in patient_data:patient_data[P_ID].append(file)
+        else:patient_data[P_ID]=[file]
 
-                if os.path.exists(FILES_PATH+element.ReferencedFileID[1]):
-                    patient_info['Records'].append(element.ReferencedFileID[1])
-
-            patient_data.append(patient_info)
-
-    df=pd.DataFrame(patient_data)
+    df=pd.DataFrame(list(patient_data.items()), columns=['PatientID','Records'])
     df.sort_values(by='PatientID',ascending=True,inplace=True)
 
     return df
 
-def labels_df():
+def labels_df(path=PIKLE_SAVED_P):
 
-    _d = pyexcel_ods.get_data(ods_file)
+    with open(path, 'rb') as file:
 
-    hoja_trabajo = next(iter(_d))
-    data = _d[hoja_trabajo]
-
-    heads=data[0]
-    data1=data[1:]
-
-    df = pd.DataFrame(data1, columns=heads)
-    filter_heads=['numero','sexo','edad','ING_embolia_sistemica', 'ING_aneurisma_micotico_A', 'ING_acv_A']
-
-    df = df.dropna(subset=['numero'])
-
-    for hh in filter_heads:df[hh] = df[hh].astype(int)
-
-    df=df[filter_heads]
-    df['label'] = np.where(df[['ING_embolia_sistemica', 'ING_aneurisma_micotico_A', 'ING_acv_A']].any(axis=1), 1, 0)
-    df.columns=['PatientID','Sex','Age','S.E.', 'M.A.', 'A.C.V.','label']
+        df = pickle.load(file)
 
     return df
 
