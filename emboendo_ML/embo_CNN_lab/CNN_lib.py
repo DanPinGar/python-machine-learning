@@ -53,7 +53,7 @@ def padd_im(vd_,max_h,max_w):
         
     return np.array(vd)
 
-def vid_d_bin_gen(input, zero=' ', one= ' '):
+def vid_d_bin_gen(input, zero=' ', one= ' ', pad_type='loop'):
 
     x,y,dims=[],[],[]
 
@@ -77,14 +77,21 @@ def vid_d_bin_gen(input, zero=' ', one= ' '):
         frames_actual = video.shape[0]
         if frames_actual < max_frm_n:
             
-            padding = np.zeros((max_frm_n - frames_actual, max_dim_h, max_dim_w, 1),dtype=np.uint8)
+            padding =pad_f(video,max_frm_n,frames_actual,max_dim_h, max_dim_w, type=pad_type)
             x[ii] = np.concatenate([video, padding], axis=0)
-
 
     X,Y = np.array(x),np.array(y)
     return X,Y,max_frm_n,max_dim_h,max_dim_w 
     
 
+def pad_f(video,max_frm_n,frames_actual,max_dim_h, max_dim_w, type=''):
+
+    if type=='zeros':padding = np.zeros((max_frm_n - frames_actual, max_dim_h, max_dim_w, 1),dtype=np.uint8)
+    elif type=='loop':
+        
+        pass
+        
+    return padding
 
 
 

@@ -30,9 +30,29 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "2f05aa02543c33df",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "a2a1c44d2689b968",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -99,7 +119,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "RECORDS.md",
+                "file": "Untitled.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +136,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "RECORDS.md",
+                "file": "Untitled.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "RECORDS.md"
+                "file": "Untitled.md"
               }
             }
           }
@@ -160,12 +180,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0b114a56735d0c19",
+  "active": "a2a1c44d2689b968",
   "lastOpenFiles": [
+    "Untitled.md",
+    "RECORDS.md",
     "Machine learning concepts.md",
     "TensorFlow.md",
     "GENERAL.md",
-    "RECORDS.md",
     "Eight views of echocaridogram.md",
     "B9780323055277500093_gr1.jpg",
     "Cardiac-Ultrasound-Echocardiography-Apical-4-Chamber-view-A4C-Illustration.png",
