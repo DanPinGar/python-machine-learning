@@ -84,16 +84,29 @@ def vid_d_bin_gen(input, zero=' ', one= ' ', pad_type='loop'):
     return X,Y,max_frm_n,max_dim_h,max_dim_w 
     
 
-def pad_f(video,max_frm_n,frames_actual,max_dim_h, max_dim_w, type=''):
+def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
 
-    if type=='zeros':padding = np.zeros((max_frm_n - frames_actual, max_dim_h, max_dim_w, 1),dtype=np.uint8)
+    if type=='zeros':padding = np.zeros((max_frm_n - frames_video, max_dim_h, max_dim_w, 1),dtype=np.uint8)
+    
     elif type=='loop':
-        
-        pass
+
+        while max_frm_n > frames_actual:
+
+            frames_adding = max_frm_n - frames_actual
+
+            if frames_adding > frames_video:
+
+                if padding is None:padding = video.copy()  
+                else:padding = np.concatenate([padding, video], axis=0)
+
+            else:
+
+                if padding is None:padding = video[0:frames_adding].copy()
+                else:padding = np.concatenate([padding, video[0:frames_adding]], axis=0)
+
+            frames_actual = frames_video + padding.shape[0]
         
     return padding
-
-
 
 # --------------------------------- MODELS ---------------------------------
 
