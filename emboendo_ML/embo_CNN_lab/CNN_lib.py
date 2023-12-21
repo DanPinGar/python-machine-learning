@@ -40,20 +40,35 @@ def im_d_bin_gen(input,zero=' ', one= ' '):
 
     return X,Y
 
-def padd_im(vd_,max_h,max_w):
-    vd=[]
-    for vid in vd_:
+def padd_im(vd_,max_h,max_w,type=''):
 
-        fil = max_h - vid.shape[0]
-        col = max_w - vid.shape[1]
-        n = np.pad(vid, ((0, fil), (0, 0)), mode='constant', constant_values=0)
-        n = np.pad(n, ((0, 0), (0, col)), mode='constant', constant_values=0)
-       
-        vd.append(n)
+    vd=[]
+
+    if type == 'border':
+
+        for vid in vd_:
+
+            fil = max_h - vid.shape[0]
+            col = max_w - vid.shape[1]
+            n = np.pad(vid, ((0, fil), (0, 0)), mode='constant', constant_values=0)
+            n = np.pad(n, ((0, 0), (0, col)), mode='constant', constant_values=0)
         
+            vd.append(n)
+    
+    if type == 'center':
+
+        for vid in vd_:
+
+            fil = max_h - vid.shape[0]
+            col = max_w - vid.shape[1]
+
+            n = np.pad(vid, ((fil // 2, (fil + 1) // 2), (col // 2, (col + 1) // 2)), mode='constant', constant_values=0)
+
+            vd.append(n)
+
     return np.array(vd)
 
-def vid_d_bin_gen(input, zero=' ', one= ' ', pad_type='loop'):
+def vid_d_bin_gen(input, zero=' ', one= ' ', pad_type='loop',im_pad_type='center'):
 
     x,y,dims=[],[],[]
 
@@ -63,7 +78,7 @@ def vid_d_bin_gen(input, zero=' ', one= ' ', pad_type='loop'):
 
     for kk,value in input.items():
 
-        vd=padd_im(value['image'].copy(),max_dim_h,max_dim_w)
+        vd=padd_im(value['image'].copy(),max_dim_h,max_dim_w,type=im_pad_type)
         vd = vd[:, :, :, np.newaxis]
         x.append(vd)
         dims.append(value['dimHW'])
@@ -90,6 +105,9 @@ def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
     
     elif type=='loop':
 
+        padding = None  
+        frames_actual = frames_video
+
         while max_frm_n > frames_actual:
 
             frames_adding = max_frm_n - frames_actual
@@ -100,7 +118,6 @@ def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
                 else:padding = np.concatenate([padding, video], axis=0)
 
             else:
-
                 if padding is None:padding = video[0:frames_adding].copy()
                 else:padding = np.concatenate([padding, video[0:frames_adding]], axis=0)
 

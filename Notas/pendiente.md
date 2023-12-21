@@ -1,3 +1,7 @@
+
+- buscar patologías en las que se usan ETE
+
+
 schoolar
 pumer
 
