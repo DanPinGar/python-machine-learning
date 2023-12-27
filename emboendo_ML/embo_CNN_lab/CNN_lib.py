@@ -1,4 +1,5 @@
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow import keras
 
@@ -40,6 +41,43 @@ def im_d_bin_gen(input,zero=' ', one= ' '):
 
     return X,Y
 
+
+def vid_d_bin_gen(input, zero=' ', one= ' ', pad_type='loop',im_pad_type='center'):
+
+    x,y,dims=[],[],[]
+
+    max_dim_h = max(value['dimHW'][0] for value in input.values())
+    max_dim_w = max(value['dimHW'][1] for value in input.values())
+    max_frm_n=max([len(R['image']) for R in input.values()])
+
+    for kk,value in input.items():
+
+        vd=padd_im(value['image'].copy().astype(np.float32),max_dim_h,max_dim_w,type=im_pad_type)
+        vd=vd/vd.max()
+        vd = vd[:, :, :, np.newaxis]
+
+        x.append(vd)
+        dims.append(value['dimHW'])
+
+        if value['label']==zero: y.append(0)
+        elif value['label']==one: y.append(1)
+        else: print('Binary asigment ERROR')
+
+    for ii, video in enumerate(x):
+    
+        frames_actual = video.shape[0]
+        if frames_actual < max_frm_n:
+            
+            padding =pad_f(video,max_frm_n,frames_actual,max_dim_h, max_dim_w, type=pad_type)
+            x[ii] = np.concatenate([video, padding], axis=0)
+
+    X,Y = np.array(x),np.array(y)
+    
+    return X,Y,max_frm_n,max_dim_h,max_dim_w 
+    
+
+# --------------------------------- PADDING ---------------------------------
+
 def padd_im(vd_,max_h,max_w,type=''):
 
     vd=[]
@@ -68,40 +106,10 @@ def padd_im(vd_,max_h,max_w,type=''):
 
     return np.array(vd)
 
-def vid_d_bin_gen(input, zero=' ', one= ' ', pad_type='loop',im_pad_type='center'):
-
-    x,y,dims=[],[],[]
-
-    max_dim_h = max(value['dimHW'][0] for value in input.values())
-    max_dim_w = max(value['dimHW'][1] for value in input.values())
-    max_frm_n=max([len(R['image']) for R in input.values()])
-
-    for kk,value in input.items():
-
-        vd=padd_im(value['image'].copy(),max_dim_h,max_dim_w,type=im_pad_type)
-        vd = vd[:, :, :, np.newaxis]
-        x.append(vd)
-        dims.append(value['dimHW'])
-
-        if value['label']==zero: y.append(0)
-        elif value['label']==one: y.append(1)
-        else: print('Binary asigment ERROR')
-
-    for ii, video in enumerate(x):
-    
-        frames_actual = video.shape[0]
-        if frames_actual < max_frm_n:
-            
-            padding =pad_f(video,max_frm_n,frames_actual,max_dim_h, max_dim_w, type=pad_type)
-            x[ii] = np.concatenate([video, padding], axis=0)
-
-    X,Y = np.array(x),np.array(y)
-    return X,Y,max_frm_n,max_dim_h,max_dim_w 
-    
 
 def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
 
-    if type=='zeros':padding = np.zeros((max_frm_n - frames_video, max_dim_h, max_dim_w, 1),dtype=np.uint8)
+    if type=='zeros':padding = np.zeros((max_frm_n - frames_video, max_dim_h, max_dim_w, 1))#, dtype=float)
     
     elif type=='loop':
 
@@ -124,6 +132,26 @@ def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
             frames_actual = frames_video + padding.shape[0]
         
     return padding
+
+
+# --------------------------------- DATA AUGMENTATION ---------------------------------
+
+def random_flip(matrix):
+
+    rnd_number= np.random.random()
+    video = tf.image.convert_image_dtype(matrix, dtype=tf.float32)
+
+    if rnd_number <0.333:video = tf.image.flip_up_down(video)
+    elif rnd_number <0.666:video = tf.image.flip_left_right(video)
+    else:
+        
+        video = tf.image.flip_up_down(video)
+        video = tf.image.flip_left_right(video)
+
+    video = tf.clip_by_value(video, 0.0, 1.0)
+
+    return video
+
 
 # --------------------------------- MODELS ---------------------------------
 
