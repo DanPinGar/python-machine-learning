@@ -21,7 +21,13 @@ def bin_forecast(pred,label='real label',up_frc='up forecast',down_frc='down for
         print(f'Percentage: {(1-pred_r)*100} %')
     print(' ')
 
- 
+def shuffle(x,y,r=None):
+
+    idx = np.random.permutation(len(x))
+    xx,yy=y[idx],y[idx]
+    #rr=list(np.take(r, idx))
+
+    return xx,yy
 
 # --------------------------------- INPUT GENERATORS ---------------------------------
 
@@ -135,6 +141,30 @@ def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
 
 
 # --------------------------------- DATA AUGMENTATION ---------------------------------
+
+def main_aug_f(n,X,Y,R,label=1):
+
+    aug_R=[]
+    aug_X=[]
+
+    if label == 1:aug_Y=np.ones(n)
+    elif label == 0: aug_Y=np.zeros(n)
+
+    if label == 1:idx_Y = np.where(Y == 1)[0]
+    if label == 0:idx_Y = np.where(Y == 0)[0]
+
+    idx_Y = np.random.choice(idx_Y, size=n, replace=False)
+
+    for index in idx_Y:
+
+        video=random_flip(X[index])
+        aug_X.append(video)
+        aug_R.append('AUG_'+R[index])
+
+    aug_X=np.array(aug_X)
+
+    return aug_X,aug_Y,aug_R
+
 
 def random_flip(matrix):
 

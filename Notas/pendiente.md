@@ -1,4 +1,8 @@
 
+cenrtarndo el articulo:antecedentes. 
+metodologia de machine learning
+
+
 factor d eimpacto JACC JCR Factor de impacto de 3 o 4 ya esta bien
 - buscar patologías en las que se usan ETE
 
