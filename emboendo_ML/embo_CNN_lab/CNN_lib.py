@@ -21,13 +21,13 @@ def bin_forecast(pred,label='real label',up_frc='up forecast',down_frc='down for
         print(f'Percentage: {(1-pred_r)*100} %')
     print(' ')
 
-def shuffle(x,y,r=None):
+def shuffle(x,y,r):
 
     idx = np.random.permutation(len(x))
-    xx,yy=y[idx],y[idx]
-    #rr=list(np.take(r, idx))
+    xx,yy=x[idx],y[idx]
+    rr=list(np.take(r, idx))
 
-    return xx,yy
+    return xx,yy,rr
 
 # --------------------------------- INPUT GENERATORS ---------------------------------
 
