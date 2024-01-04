@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow import keras
@@ -28,6 +30,51 @@ def shuffle(x,y,r):
     rr=list(np.take(r, idx))
 
     return xx,yy,rr
+
+
+# --------------------------------- PLOTS ---------------------------------
+
+def plot_train_eval(history,epochs):
+
+    acc = history.history['accuracy']
+    val_acc = history.history['val_accuracy']
+
+    loss = history.history['loss']
+    val_loss = history.history['val_loss']
+
+    epochs_range = range(epochs)
+
+    plt.figure(figsize=(14,8))
+    plt.subplot(1, 2, 1)
+    plt.plot(epochs_range, acc, label='Training Accuracy')
+    plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+    plt.legend(loc='lower right')
+    plt.title('Training and Validation Accuracy')
+    plt.xlabel('Epochs')  
+    plt.ylabel('Accuracy')  
+
+    plt.subplot(1, 2, 2)
+    plt.plot(epochs_range[1:-1], loss[1:-1], label='Training Loss')
+    plt.plot(epochs_range[1:-1], val_loss[1:-1], label='Validation Loss')
+    plt.legend(loc='upper right')
+    plt.title('Training and Validation Loss')
+    plt.xlabel('Epochs')  
+    plt.ylabel('Loss')  
+    plt.show()
+
+def plot_roc_curve(fpr_val,tpr_val,roc_auc_false):
+
+    plt.figure(figsize=(8, 8))
+
+    plt.plot(fpr_val, tpr_val, color='darkorange', lw=2, label=f'AUC = {roc_auc_false:.2f}')
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.xlabel('False Positive Rate(orange)')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curve Validation Data')
+    plt.legend(loc='lower right')
+    plt.show()
+
+
 
 # --------------------------------- INPUT GENERATORS ---------------------------------
 
