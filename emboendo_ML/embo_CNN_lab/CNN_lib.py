@@ -34,6 +34,17 @@ def shuffle(x,y,r):
 
 # --------------------------------- PLOTS ---------------------------------
 
+def data_bars_plot(zeros_count,ones_count,zeros_count_val,ones_count_val):
+
+    labels = ['0 Train', '1 Train','0 Validation', '1 Validation']
+    plt.bar(labels, [zeros_count, ones_count,zeros_count_val,ones_count_val], color=['green', 'blue','green', 'blue'])
+
+    for i, count in enumerate([zeros_count, ones_count,zeros_count_val,ones_count_val]): plt.text(i, count + 0.1, str(count), ha='center', va='bottom')
+
+    plt.title('Data Labels Before Augmentation')
+    plt.show()
+
+
 def plot_train_eval(history,epochs):
 
     acc = history.history['accuracy']
