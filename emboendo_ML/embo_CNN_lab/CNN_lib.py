@@ -200,10 +200,12 @@ def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
 
 # --------------------------------- DATA AUGMENTATION ---------------------------------
 
-def main_aug_f(n,X,Y,R,label=1):
+def main_aug_f(n,X,Y,R,label=1,typ='Flip'):
 
-    aug_R=[]
-    aug_X=[]
+    """
+    typ: Flip, Contrast or Brightness
+    """
+    aug_R,aug_X = [],[]
 
     if label == 1:aug_Y=np.ones(n)
     elif label == 0: aug_Y=np.zeros(n)
@@ -211,13 +213,29 @@ def main_aug_f(n,X,Y,R,label=1):
     if label == 1:idx_Y = np.where(Y == 1)[0]
     if label == 0:idx_Y = np.where(Y == 0)[0]
 
-    idx_Y = np.random.choice(idx_Y, size=n, replace=False)
+    idx = np.random.choice(idx_Y, size=n, replace=False)
 
-    for index in idx_Y:
+    for index in idx:
 
         video=random_flip(X[index])
+
+        if typ=='Flip':
+
+            aug_R.append('FLIP_'+R[index])
+            video=random_flip(X[index])
+        
+
+        if typ=='Contrast':
+
+            aug_R.append('CNTR_'+R[index])
+            video=random_contrast(X[index])
+
+        if typ=='Brightness':
+
+            aug_R.append('BRGHT_'+R[index])
+            video=random_brightness(X[index])
+        
         aug_X.append(video)
-        aug_R.append('AUG_'+R[index])
 
     aug_X=np.array(aug_X)
 
@@ -240,10 +258,26 @@ def random_flip(matrix):
 
     return video
 
+def random_contrast(matrix):
+
+    video = tf.image.convert_image_dtype(matrix, dtype=tf.float32)
+    video = tf.image.random_contrast(video, lower=0.5, upper=10)
+    video = tf.clip_by_value(video, 0.0, 1.0)
+
+    return video
+
+def random_brightness(matrix):
+
+    video = tf.image.convert_image_dtype(matrix, dtype=tf.float32)
+    video = tf.image.random_brightness(video, max_delta=0.9)
+    video = tf.clip_by_value(video, 0.0, 1.0)
+
+    return video
+
 
 # --------------------------------- MODELS ---------------------------------
 
-MODELS={'A':'image_full','B':'image_conv','C':'image_conv_augmentation','D':'video_conv2D','E':'video_conv3D'}
+MODELS={'A':'image_full','B':'image_conv','C':'image_conv_augmentation','D':'video_conv2D','E':'video_conv3D','F':'video_conv3D_2','F':'conv3D_2D+1'}
 
 
 def lib_models(mdl:str,im_input_shp=None):
@@ -322,19 +356,54 @@ def lib_models(mdl:str,im_input_shp=None):
         elif mdl == MODELS['E']:
 
             model = models.Sequential([
-                            layers.Conv3D(filters=16, kernel_size=(3, 3, 3), activation='relu',input_shape=im_input_shp),
-                            layers.MaxPooling3D(pool_size=(2, 2, 2)),
-                            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
-                            layers.MaxPooling3D(pool_size=(2, 2, 2)),
-                            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
-                            layers.MaxPooling3D(pool_size=(2, 2, 2)),
-                            layers.Conv3D(filters=64, kernel_size=(1, 3, 3),  activation='relu'),
-                            layers.Flatten(),
-                            layers.Dense(64, activation='relu'),
-                            layers.Dense(1,activation='sigmoid')
-                            ])
+                    layers.Conv3D(filters=16, kernel_size=(3, 3, 2), activation='relu',input_shape=im_input_shp),
+                    layers.MaxPooling3D(pool_size=(4, 4, 4)),
+                    layers.Conv3D(filters=32, kernel_size=(3, 3, 2),  activation='relu'),
+                    layers.Flatten(),
+                    layers.Dropout(0.2),   # si lo subes baja muchisimo
+                    layers.Dense(64, activation='relu'),
+                    layers.Dense(1,activation='sigmoid')
+                    ])
 
             print(f"MODEL LOADED: {MODELS['E']}")
+
+        elif mdl == MODELS['F']:
+
+            model = models.Sequential([
+                layers.Conv3D(filters=16, kernel_size=(3, 3, 2), activation='relu',input_shape=im_input_shp),
+                layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                layers.Conv3D(filters=32, kernel_size=(3, 3, 2),  activation='relu'),
+                layers.Dropout(0.2),
+                layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                layers.Conv3D(filters=32, kernel_size=(3, 3, 2),  activation='relu'),
+                layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                layers.Conv3D(filters=16, kernel_size=(3, 3, 1),  activation='relu'),
+                layers.Flatten(),
+                layers.Dropout(0.2),
+                layers.Dense(64, activation='relu'),
+                layers.Dense(64, activation='relu'),
+                layers.Dense(1,activation='sigmoid')
+                ])
+
+            print(f"MODEL LOADED: {MODELS['F']}")
+
+        elif mdl == MODELS['G']:
+
+            model = models.Sequential([
+                layers.Conv3D(filters=16, kernel_size=(3, 3, 1), activation='relu',input_shape=(max_frm_n, HEIGHT, WIDTH, 1)),
+                layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                layers.Conv3D(filters=32, kernel_size=(3, 3, 1),  activation='relu'),
+                layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                layers.Conv3D(filters=32, kernel_size=(3, 3, 1),  activation='relu'),
+                layers.MaxPooling3D(pool_size=(2, 2, 2)),
+                layers.Conv3D(filters=16, kernel_size=(1, 1, 5),  activation='relu'),
+                layers.Flatten(),
+                layers.Dropout(0.2),
+                layers.Dense(64, activation='relu'),
+                layers.Dense(1,activation='sigmoid')
+                ])
+            
+            print(f"MODEL LOADED: {MODELS['F']}")
 
         print(' ')
 
