@@ -247,7 +247,6 @@ def main_aug_f(n,X,Y,R,label=1,typ='Flip'):
 
     for index in idx:
 
-        video=random_flip(X[index])
 
         if typ=='Flip':
 
