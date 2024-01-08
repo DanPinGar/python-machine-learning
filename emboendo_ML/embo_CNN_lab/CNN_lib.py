@@ -31,8 +31,38 @@ def shuffle(x,y,r):
 
     return xx,yy,rr
 
+def stats(data,rnd=3):
+
+    media = np.mean(data)
+    mediana = np.median(data)
+    desviacion_estandar = np.std(data)
+    varianza = np.var(data)
+    minimo = np.min(data)
+    maximo = np.max(data)
+    percentil_25 = np.percentile(data, 25)
+    percentil_75 = np.percentile(data, 75)
+
+    print(f'Valor medio:{round(media,rnd)}')
+    print(f'Desviación estandar:{round(desviacion_estandar,rnd)}')
+    print(f'Varianza:{round(varianza,rnd)}')
+    print(f'Máximo:{round(maximo,rnd)}')
+    print(f'Mínimo:{round(minimo,rnd)}')
+    print(f'Mediana:{round(mediana,rnd)}')
+    print(f'Percentil 25:{round(percentil_25,rnd)}')
+    print(f'Percentil 75:{round(percentil_75,rnd)}')
+
+
+
 
 # --------------------------------- PLOTS ---------------------------------
+
+def list_plot(data,title=None,ylabel=None):
+
+    plt.plot(data)
+    plt.title(title)
+    plt.ylabel(ylabel)
+    plt.show()
+
 
 def data_bars_plot(zeros_count,ones_count,zeros_count_val,ones_count_val):
 
@@ -203,7 +233,7 @@ def pad_f(video,max_frm_n,frames_video,max_dim_h, max_dim_w, type=''):
 def main_aug_f(n,X,Y,R,label=1,typ='Flip'):
 
     """
-    typ: Flip, Contrast or Brightness
+    typ: Flip, Rotation, Contrast, Brightness, Noise
     """
     aug_R,aug_X = [],[]
 
@@ -234,6 +264,11 @@ def main_aug_f(n,X,Y,R,label=1,typ='Flip'):
 
             aug_R.append('BRGHT_'+R[index])
             video=random_brightness(X[index])
+
+        if typ=='Rotation':
+
+            aug_R.append('ROT_'+R[index])
+            video=random_rotation(X[index])
         
         aug_X.append(video)
 
@@ -247,13 +282,19 @@ def random_flip(matrix):
     rnd_number= np.random.random()
     video = tf.image.convert_image_dtype(matrix, dtype=tf.float32)
 
-    if rnd_number <0.333:video = tf.image.flip_up_down(video)
-    elif rnd_number <0.666:video = tf.image.flip_left_right(video)
-    else:
-        
-        video = tf.image.flip_up_down(video)
-        video = tf.image.flip_left_right(video)
+    if rnd_number <0.5:video = tf.image.flip_up_down(video)
+    else: video = tf.image.flip_left_right(video)
+    
+    video = tf.clip_by_value(video, 0.0, 1.0)
 
+    return video
+
+def random_rotation(matrix):
+    
+    rnd_number = tf.random.uniform(shape=[], minval=0, maxval=3, dtype=tf.int32)
+    video = tf.image.convert_image_dtype(matrix, dtype=tf.float32)
+    
+    video = tf.image.rot90(video, k=rnd_number + 1)  
     video = tf.clip_by_value(video, 0.0, 1.0)
 
     return video
