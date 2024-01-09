@@ -60,3 +60,22 @@ def im_data(image_data):
     width, height = image_data.shape[1], image_data.shape[0]
 
     return image_8bit,  width, height
+
+def gen_patients_d_df(json_d):
+
+    patients_recs_d_df=main_d_df()
+    patients_labels_d_df=labels_df()
+    patients_d_df=pd.merge( patients_labels_d_df,patients_recs_d_df, on='PatientID')
+
+    def find_recs(row):
+
+        rec_true = [record for record in row['Records'] if record in list(json_d.keys())]
+
+        return pd.Series({'recs_crop': rec_true})
+
+    new_col = patients_d_df.apply(find_recs, axis=1)
+    patients_d_df = pd.concat([patients_d_df, new_col], axis=1)
+    patients_d_df=patients_d_df.drop('Records', axis=1)
+    patients_d_df =  patients_d_df[patients_d_df['recs_crop'].apply(lambda x: x != [])]
+
+    return patients_d_df
