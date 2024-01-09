@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import re
 import pickle
 
+from sklearn.model_selection import train_test_split
+
 
 PIKLE_SAVED_P='C:\PROJECTS\emboendo\dicom_viewer\_static\labels_d.pkl'
 #FILES_PATH = 'C:/PROJECTS/emboendo/Data/AnonymDAnon_Filter_III/DICOM/'
@@ -79,3 +81,40 @@ def gen_patients_d_df(json_d):
     patients_d_df =  patients_d_df[patients_d_df['recs_crop'].apply(lambda x: x != [])]
 
     return patients_d_df
+
+def random_split_by_recs(X_d, Y_d,recs, test_size=0.2):
+
+    X_train_spl, X_eval_spl, Y_train_spl, Y_eval_spl = train_test_split(X_d, Y_d, test_size=test_size, shuffle=False) #,random_state=42)
+
+    recs_train =recs[0:len(Y_train_spl)]
+    recs_eval =recs[len(Y_train_spl)::]
+
+    return X_train_spl, X_eval_spl, Y_train_spl, Y_eval_spl ,recs_train,recs_eval
+
+def random_split_by_patients(patients_d_df,recs,X_d,Y_d, val_pat_0=5, val_pat_1=3):
+
+    patients_1_ls =patients_d_df.loc[patients_d_df['label']==1,'PatientID'].tolist()
+    patients_0_ls =patients_d_df.loc[patients_d_df['label']==0,'PatientID'].tolist()
+    patients_1_rnd =np.random.choice(patients_1_ls,val_pat_1,replace=False)
+    patients_0_rnd =np.random.choice(patients_0_ls,val_pat_0,replace=False)
+
+    recs_eval_1 = patients_d_df.loc[patients_d_df['PatientID'].isin(patients_1_rnd), 'recs_crop'].tolist()
+    recs_eval_1 = [ii for sublist in recs_eval_1 for ii in sublist]
+
+    recs_eval_0 = patients_d_df.loc[patients_d_df['PatientID'].isin(patients_0_rnd), 'recs_crop'].tolist()
+    recs_eval_0 = [ii for sublist in recs_eval_0 for ii in sublist]
+
+    recs_eval=recs_eval_0+recs_eval_1
+    recs_train = [ii for ii in recs if ii not in recs_eval]
+    idx_recs_eval = [recs.index(ii) for ii in recs_eval if ii in recs]
+    idx_recs_train = [recs.index(ii) for ii in recs_train if ii in recs]
+
+    X_eval_spl = np.take(X_d, idx_recs_eval, axis=0)
+    Y_eval_spl = np.take(Y_d, idx_recs_eval, axis=0)
+
+    X_train_spl = np.take(X_d, idx_recs_train, axis=0)
+    Y_train_spl = np.take(Y_d, idx_recs_train, axis=0)
+
+    
+
+    return X_train_spl, X_eval_spl, Y_train_spl, Y_eval_spl ,recs_train,recs_eval
