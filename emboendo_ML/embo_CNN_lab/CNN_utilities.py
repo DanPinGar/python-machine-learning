@@ -82,6 +82,28 @@ def gen_patients_d_df(json_d):
 
     return patients_d_df
 
+
+# -------------------------------- CNN LAB --------------------------------
+
+def simple_check(rec_elm,recs,x_train, y_train):
+
+    try:
+        idx=recs.index(rec_elm)
+        print(rec_elm,' Label:',y_train[idx])
+
+        plt.imshow(x_train[idx][0], cmap='gray')
+        plt.axis('off') 
+        plt.show()
+    
+    except: print('No Luck')
+
+def in_loop_check(rec_elm,recs,x_train, y_train):
+
+    simple_check(rec_elm,recs,x_train, y_train)
+
+    for x,y,r in zip(x_train,y_train,recs):print(r,int(y),np.shape(x),type(x))
+
+
 def random_split_by_recs(X_d, Y_d,recs, test_size=0.2):
 
     X_train_spl, X_eval_spl, Y_train_spl, Y_eval_spl = train_test_split(X_d, Y_d, test_size=test_size, shuffle=False) #,random_state=42)
