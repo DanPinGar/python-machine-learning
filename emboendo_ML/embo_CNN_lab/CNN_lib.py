@@ -314,6 +314,36 @@ def random_brightness(matrix):
 
     return video
 
+def d_augmentation_logic_encapsulation(X_train_spl,Y_train_spl,recs,n_flip_1,n_flip_0,n_rot_1,n_rot_0,n_contr_1,n_contr_0,n_bright_1,n_bright_0):
+
+    zeros_count = np.sum(Y_train_spl == 0)
+    ones_count = np.sum(Y_train_spl == 1)
+   
+    nf1,nf0 = round(n_flip_1*ones_count),round(n_flip_0*zeros_count)
+    nr1,nr0 = round(n_rot_1*ones_count),round(n_rot_0*zeros_count)
+    nc1,nc0 = round(n_contr_1*ones_count),round(n_contr_0*zeros_count)
+    nb1,nb0 = round(n_bright_1*ones_count),round(n_bright_0*zeros_count)
+
+    Flip_X_1,Flip_Y_1,Flip_recs_1= main_aug_f(nf1,X_train_spl,Y_train_spl,recs,label=1,typ='Flip')
+    Flip_X_0,Flip_Y_0,Flip_recs_0= main_aug_f(nf0,X_train_spl,Y_train_spl,recs,label=0,typ='Flip')
+
+    Rot_X_1,Rot_Y_1,Rot_recs_1= main_aug_f(nr1,X_train_spl,Y_train_spl,recs,label=1,typ='Rotation')
+    Rot_X_0,Rot_Y_0,Rot_recs_0= main_aug_f(nr0,X_train_spl,Y_train_spl,recs,label=0,typ='Rotation')
+
+    Cntr_X_1,Cntr_Y_1,Cntr_recs_1= main_aug_f(nc1,X_train_spl,Y_train_spl,recs,label=1,typ='Contrast')
+    Cntr_X_0,Cntr_Y_0,Cntr_recs_0= main_aug_f(nc0,X_train_spl,Y_train_spl,recs,label=0,typ='Contrast')
+
+    Bgr_X_1,Bgr_Y_1,Bgr_recs_1= main_aug_f(nb1,X_train_spl,Y_train_spl,recs,label=1,typ='Brightness')
+    Bgr_X_0,Bgr_Y_0,Bgr_recs_0= main_aug_f(nb0,X_train_spl,Y_train_spl,recs,label=0,typ='Brightness')
+
+    X_train_spl = np.concatenate((X_train_spl, Flip_X_1,Flip_X_0,Rot_X_1,Rot_X_0,Cntr_X_1,Cntr_X_0,Bgr_X_1,Bgr_X_0), axis=0)
+    Y_train_spl = np.concatenate((Y_train_spl, Flip_Y_1,Flip_Y_0,Rot_Y_1,Rot_Y_0,Cntr_Y_1,Cntr_Y_0,Bgr_Y_1,Bgr_Y_0))
+
+    recs_train = recs_train+Flip_recs_1+Flip_recs_0+Rot_recs_1+Rot_recs_0+Cntr_recs_1+Cntr_recs_0+Bgr_recs_1+Bgr_recs_0
+
+
+    return X_train_spl, Y_train_spl, recs_train
+
 
 # --------------------------------- MODELS ---------------------------------
 
