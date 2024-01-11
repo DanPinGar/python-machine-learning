@@ -56,13 +56,20 @@ def stats(data,rnd=3):
 
 # --------------------------------- PLOTS ---------------------------------
 
-def list_plot(data,title=None,ylabel=None):
+def list_plot(data,title='Plot',ylabel='y'):
 
     plt.plot(data)
     plt.title(title)
     plt.ylabel(ylabel)
     plt.show()
 
+def simple_plot(x,y,title='Plot',xlabel='x',ylabel='y'):
+
+    plt.plot(x,y)
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.show()
 
 def data_bars_plot(zeros_count,ones_count,zeros_count_val,ones_count_val):
 
@@ -314,15 +321,15 @@ def random_brightness(matrix):
 
     return video
 
-def d_augmentation_logic_encapsulation(X_train_spl,Y_train_spl,recs_train,n_flip_1,n_flip_0,n_rot_1,n_rot_0,n_contr_1,n_contr_0,n_bright_1,n_bright_0):
+def d_augmentation_logic_encapsulation(X_train_spl,Y_train_spl,recs_train,params):
 
     zeros_count = np.sum(Y_train_spl == 0)
     ones_count = np.sum(Y_train_spl == 1)
    
-    nf1,nf0 = round(n_flip_1*ones_count),round(n_flip_0*zeros_count)
-    nr1,nr0 = round(n_rot_1*ones_count),round(n_rot_0*zeros_count)
-    nc1,nc0 = round(n_contr_1*ones_count),round(n_contr_0*zeros_count)
-    nb1,nb0 = round(n_bright_1*ones_count),round(n_bright_0*zeros_count)
+    nf1,nf0 = round(params['f1']*ones_count),round(params['f0']*zeros_count)
+    nr1,nr0 = round(params['r1']*ones_count),round(params['r0']*zeros_count)
+    nc1,nc0 = round(params['c1']*ones_count),round(params['c0']*zeros_count)
+    nb1,nb0 = round(params['b1']*ones_count),round(params['b0']*zeros_count)
 
     Flip_X_1,Flip_Y_1,Flip_recs_1= main_aug_f(nf1,X_train_spl,Y_train_spl,recs_train,label=1,typ='Flip')
     Flip_X_0,Flip_Y_0,Flip_recs_0= main_aug_f(nf0,X_train_spl,Y_train_spl,recs_train,label=0,typ='Flip')
