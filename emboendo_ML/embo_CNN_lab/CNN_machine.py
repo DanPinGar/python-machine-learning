@@ -35,20 +35,29 @@ class Gen_Model:
         self.model_compile()
 
     def def_model(self):
+        
 
         model = models.Sequential([
-            layers.Conv3D(filters=16, kernel_size=(3, 3, 1), activation='relu',input_shape=self.input_shape),
+            layers.Conv3D(filters=16, kernel_size=(1, 3, 3), activation='relu',input_shape=self.input_shape),
+            layers.MaxPooling3D(pool_size=(1, 2, 2)),
+            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
+            layers.MaxPooling3D(pool_size=(1, 2, 2)),
+            layers.Dropout(0.3),
+            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
+            layers.MaxPooling3D(pool_size=(1, 2, 2)),
+            layers.Dropout(0.3),
+            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
             layers.MaxPooling3D(pool_size=(2, 2, 2)),
-            layers.Conv3D(filters=32, kernel_size=(3, 3, 1),  activation='relu'),
+            layers.Dropout(0.3),
+            layers.Conv3D(filters=32, kernel_size=(10, 1, 1),  activation='relu'),
             layers.MaxPooling3D(pool_size=(2, 2, 2)),
-            layers.Conv3D(filters=32, kernel_size=(3, 3, 1),  activation='relu'),
-            layers.MaxPooling3D(pool_size=(2, 2, 2)),
-            layers.Conv3D(filters=16, kernel_size=(1, 1, 5),  activation='relu'),
             layers.Flatten(),
-            layers.Dropout(0.2),
+            layers.Dropout(0.4),
             layers.Dense(64, activation='relu'),
-            layers.Dense(1,activation='sigmoid')
-            ])
+            layers.Dropout(0.4),
+            layers.Dense(32, activation='relu'),
+            layers.Dense(1,activation='sigmoid')])
+
         return model
 
     def model_compile(self):
