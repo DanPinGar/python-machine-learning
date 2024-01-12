@@ -19,6 +19,16 @@ import numpy as np
 import time
 
 
+def info_print(iter,trains_n):
+
+    iter+=1
+    print(' ')
+    print(f'-------------- ITERATION {iter}/{trains_n} COMPLETED --------------')
+    print(' ')
+
+    return iter
+
+
 class Gen_Model:
 
     def __init__(self,aug_params,patients_d_df,name='MODEL X',path='MODEL_X',input_shape=None,samples=None):
@@ -85,28 +95,24 @@ class Gen_Model:
 
             X_d,Y_d,recs=CNN_lib.shuffle(x.copy(),y.copy(),r.copy())                                                                                                                                                      # SHUFFLE
 
-            Xx_train_spl, X_eval_spl, Yy_train_spl, Y_eval_spl ,recs_train,recs_eval=CNN_utilities.random_split_by_patients(self.patients_d_df,recs,X_d,Y_d, val_pat_0=patiens_split[0], val_pat_1=patiens_split[1])
+            Xx_train_spl, X_eval, Yy_train_spl, Y_eval ,recs_train,recs_eval=CNN_utilities.random_split_by_patients(self.patients_d_df,recs,X_d,Y_d, val_pat_0=patiens_split[0], val_pat_1=patiens_split[1])
 
             X_train_spl=Xx_train_spl[:self.samples, :, :, :, :]
             Y_train_spl=Yy_train_spl[:self.samples]
+            rcs_trn=recs_train[:self.samples]
 
-            X_eval,Y_eval=X_eval_spl,Y_eval_spl
+            X_train_aug, Y_train_aug, r_t = CNN_lib.d_augmentation_logic_encapsulation(X_train_spl,Y_train_spl,rcs_trn,self.aug_params)                                                                   # AUGMENTATION
 
-            X_train_spl, Y_train_spl, recs_tr = CNN_lib.d_augmentation_logic_encapsulation(X_train_spl,Y_train_spl,recs_train,self.aug_params)                                                                   # AUGMENTATION
-
-            X_train,Y_train,recs_train_f=CNN_lib.shuffle(X_train_spl,Y_train_spl,recs_tr)                                                                                                                       # SHUFFLE
+            X_train,Y_train,recs_train_f=CNN_lib.shuffle(X_train_aug,Y_train_aug,r_t)                                                                                                                       # SHUFFLE
             
             hist=self.model.fit(X_train, Y_train, epochs=epochs, validation_data=(X_eval,Y_eval),callbacks=[self.checkpoint])                                                                                                         # TRAIN
-            histories.append(hist)
             
-            iter+=1
-            print(' ')
-            print(f'-------------- ITERATION {iter}/{trains_n} COMPLETED --------------')
-            print(' ')
+            iter=info_print(iter,trains_n)
 
+            histories.append(hist)
             roc_auc_iter=self.model_perf_param(X_eval,Y_eval)
-
             roc_aucs.append(roc_auc_iter)
 
+        self.histories=histories
         self.roc_aucs=roc_aucs
             
