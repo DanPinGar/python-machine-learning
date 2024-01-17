@@ -44,22 +44,18 @@ class Gen_Model:
         self.model = self.def_model()
         self.model_compile()
 
-    def def_model(self):
+    def def_model(self,conv_str_s = (1, 2, 2) ,conv_str_t = (2, 1, 1) ):
         
 
+
         model = models.Sequential([
-            layers.Conv3D(filters=16, kernel_size=(1, 3, 3), activation='relu',input_shape=self.input_shape),
+            layers.Conv3D(filters=32, kernel_size=(1, 3, 3), activation='relu',input_shape=self.input_shape,strides=conv_str_s),
             layers.MaxPooling3D(pool_size=(1, 2, 2)),
-            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
+            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu',strides=conv_str_s),
             layers.MaxPooling3D(pool_size=(1, 2, 2)),
-            layers.Dropout(0.3),
-            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
-            layers.MaxPooling3D(pool_size=(1, 2, 2)),
-            layers.Dropout(0.3),
-            layers.Conv3D(filters=32, kernel_size=(1, 3, 3),  activation='relu'),
-            layers.MaxPooling3D(pool_size=(2, 2, 2)),
-            layers.Dropout(0.3),
-            layers.Conv3D(filters=32, kernel_size=(10, 1, 1),  activation='relu'),
+            layers.Conv3D(filters=64, kernel_size=(1, 3, 3),  activation='relu'),
+            layers.MaxPooling3D(pool_size=(2, 1, 1)),
+            layers.Conv3D(filters=128, kernel_size=(8, 1, 1),  activation='relu',strides=conv_str_t),
             layers.MaxPooling3D(pool_size=(2, 2, 2)),
             layers.Flatten(),
             layers.Dropout(0.4),
