@@ -71,6 +71,40 @@ def simple_plot(x,y,title='Plot',xlabel='x',ylabel='y'):
     plt.ylabel(ylabel)
     plt.show()
 
+def multiple_plot(x,y11,y12,y21,y22,title= ' '):
+
+    plt.plot(x, y11, linestyle='--', label='Training Accuracy',color='b')
+    plt.plot(x, y12, linestyle='--', label='Validation Accuracy',color='r')
+    plt.plot(x, y21, linestyle='-', label='Training Loss',color='b')
+    plt.plot(x, y22, linestyle='-', label='Validation Loss',color='r')
+    plt.legend(loc='lower right')
+    plt.title(title)
+    plt.xlabel('Epochs')  
+    plt.ylabel('Accuracy / Loss')  
+   
+    plt.show()
+
+def double_plot(x,y11,y12,y21,y22):
+
+    plt.figure(figsize=(14,8))
+    plt.subplot(1, 2, 1)
+    plt.plot(x, y11, label='Training Accuracy')
+    plt.plot(x, y12, label='Validation Accuracy')
+    plt.legend(loc='lower right')
+    plt.title('Training and Validation Accuracy')
+    plt.xlabel('Epochs')  
+    plt.ylabel('Accuracy')  
+
+    plt.subplot(1, 2, 2)
+    plt.plot(x, y21, label='Training Loss')
+    plt.plot(x, y22, label='Validation Loss')
+    plt.legend(loc='upper right')
+    plt.title('Training and Validation Loss')
+    plt.xlabel('Epochs')  
+    plt.ylabel('Loss')  
+    plt.show()
+
+
 def data_bars_plot(zeros_count,ones_count,zeros_count_val,ones_count_val):
 
     labels = ['0 Train', '1 Train','0 Validation', '1 Validation']
@@ -82,7 +116,7 @@ def data_bars_plot(zeros_count,ones_count,zeros_count_val,ones_count_val):
     plt.show()
 
 
-def plot_train_eval(history,epochs):
+def plot_train_eval(history,epochs, type='together'):
 
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
@@ -91,24 +125,11 @@ def plot_train_eval(history,epochs):
     val_loss = history.history['val_loss']
 
     epochs_range = range(epochs)
+    
+    if type == 'together': multiple_plot(epochs_range,acc,val_acc,loss,val_loss,title= 'Training and Validation Accuracy & Loss')
+    if type == 'separated': double_plot(epochs_range,acc,val_acc,loss,val_loss)
 
-    plt.figure(figsize=(14,8))
-    plt.subplot(1, 2, 1)
-    plt.plot(epochs_range, acc, label='Training Accuracy')
-    plt.plot(epochs_range, val_acc, label='Validation Accuracy')
-    plt.legend(loc='lower right')
-    plt.title('Training and Validation Accuracy')
-    plt.xlabel('Epochs')  
-    plt.ylabel('Accuracy')  
-
-    plt.subplot(1, 2, 2)
-    plt.plot(epochs_range[1:-1], loss[1:-1], label='Training Loss')
-    plt.plot(epochs_range[1:-1], val_loss[1:-1], label='Validation Loss')
-    plt.legend(loc='upper right')
-    plt.title('Training and Validation Loss')
-    plt.xlabel('Epochs')  
-    plt.ylabel('Loss')  
-    plt.show()
+    
 
 def plot_roc_curve(fpr_val,tpr_val,roc_auc_false):
 
