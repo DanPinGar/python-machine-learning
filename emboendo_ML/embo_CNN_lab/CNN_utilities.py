@@ -20,7 +20,6 @@ LABELS_FILE_P_2 = 'C:\PROJECTS\emboendo\Data\EII_HCUV_VAo_VMitral_con_Vegetacion
 FILTER_HEADS=['numero','sexo','edad','ING_embolia_sistemica', 'ING_aneurisma_micotico_A', 'ING_acv_A']
 
 
-
 def main_d_df():
 
     patient_data={}
@@ -125,6 +124,8 @@ def random_split_by_patients(patients_d_df,recs,X_d,Y_d, val_pat_0=5, val_pat_1=
     patients_0_ls =patients_d_df.loc[patients_d_df['label']==0,'PatientID'].tolist()
     patients_1_rnd =np.random.choice(patients_1_ls,val_pat_1,replace=False)
     patients_0_rnd =np.random.choice(patients_0_ls,val_pat_0,replace=False)
+    
+    patients_eval_id = np.concatenate((patients_0_rnd , patients_1_rnd))
 
     recs_eval_1 = patients_d_df.loc[patients_d_df['PatientID'].isin(patients_1_rnd), 'recs_crop'].tolist()
     recs_eval_1 = [ii for sublist in recs_eval_1 for ii in sublist]
@@ -143,6 +144,4 @@ def random_split_by_patients(patients_d_df,recs,X_d,Y_d, val_pat_0=5, val_pat_1=
     X_train_spl = np.take(X_d, idx_recs_train, axis=0)
     Y_train_spl = np.take(Y_d, idx_recs_train, axis=0)
 
-    
-
-    return X_train_spl, X_eval_spl, Y_train_spl, Y_eval_spl ,recs_train,recs_eval
+    return X_train_spl, X_eval_spl, Y_train_spl, Y_eval_spl ,recs_train, recs_eval , patients_eval_id
