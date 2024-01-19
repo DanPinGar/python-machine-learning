@@ -85,6 +85,12 @@ def gen_patients_d_df(json_d):
 
 # -------------------------------- CNN LAB --------------------------------
 
+def save_data(path,data):
+
+    with open(path, 'wb') as pikle_file:
+        
+        pickle.dump(data, pikle_file)
+
 def simple_check(rec_elm,recs,x_train, y_train):
 
     try:

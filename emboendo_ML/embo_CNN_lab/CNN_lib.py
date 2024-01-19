@@ -31,7 +31,7 @@ def shuffle(x,y,r):
 
     return xx,yy,rr
 
-def stats(data,rnd=3):
+def stats(data,title=' ',rnd=3):
 
     media = np.mean(data)
     mediana = np.median(data)
@@ -42,6 +42,8 @@ def stats(data,rnd=3):
     percentil_25 = np.percentile(data, 25)
     percentil_75 = np.percentile(data, 75)
 
+    print(' ')
+    print(title,':')
     print(f'Valor medio:{round(media,rnd)}')
     print(f'Desviación estandar:{round(desviacion_estandar,rnd)}')
     print(f'Varianza:{round(varianza,rnd)}')

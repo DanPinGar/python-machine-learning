@@ -23,9 +23,8 @@ import time
 def info_print(iter,trains_n,name):
 
     iter+=1
-    print(' ')
-    print(f'-------------- {name}: ITERATION {iter}/{trains_n} COMPLETED --------------')
-    print(' ')
+    print(f'------- {name}: ITERATION {iter}/{trains_n} COMPLETED -------')
+    
 
     return iter
 
@@ -75,18 +74,16 @@ class Gen_Model:
 
         return  roc_auc
          
-
     def train_model(self, x, y,r,epochs,trains_n,patiens_split):
 
         iter=0
         histories,roc_aucs=[],[]
 
         check_points_p = [self.checkpoint_path+'_'+str(n)+'.h5' for n in range(trains_n)]
-        checkpoints=[ModelCheckpoint(pp, save_best_only=True, monitor='val_loss',   mode='min', verbose=1) for pp in check_points_p]
+        checkpoints=[ModelCheckpoint(pp, save_best_only=True, monitor='val_loss',   mode='min', verbose=0) for pp in check_points_p]
 
         for chk_p in checkpoints:
             
-            checkpoint = ModelCheckpoint(self.checkpoint_path, save_best_only=True, monitor='val_loss',   mode='min', verbose=0,load_weights_on_restart=False)  
             X_d,Y_d,recs=CNN_lib.shuffle(x.copy(),y.copy(),r.copy())                                                                                                                                                      # SHUFFLE
 
             Xx_train_spl, X_eval, Yy_train_spl, Y_eval ,recs_train,recs_eval=CNN_utilities.random_split_by_patients(self.patients_d_df,recs,X_d,Y_d, val_pat_0=patiens_split[0], val_pat_1=patiens_split[1])
@@ -99,7 +96,7 @@ class Gen_Model:
 
             X_train,Y_train,recs_train_f=CNN_lib.shuffle(X_train_aug,Y_train_aug,r_t)                                                                                                                       # SHUFFLE
             
-            hist=self.model.fit(X_train, Y_train, epochs=epochs, validation_data=(X_eval,Y_eval),callbacks=[chk_p])                                                                                                         # TRAIN
+            hist=self.model.fit(X_train, Y_train, epochs=epochs, validation_data=(X_eval,Y_eval),callbacks=[chk_p],verbose=0)                                                                                                         # TRAIN
             
             iter=info_print(iter,trains_n,self.name)
 
